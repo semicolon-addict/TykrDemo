@@ -1,0 +1,43 @@
+Build a production-style web application inspired by tykr.com for demonstration/educational purposes. Do not copy logos, copyrighted copy, or proprietary assets. Use original UI text and design. Tech stack: React + TypeScript (Vite), Tailwind CSS, Node.js + TypeScript (Express or Fastify), PostgreSQL, TypeORM/Prisma, Redis for caching, Dockerfile, and CI workflow (GitHub Actions). Provide Replit deployment notes.
+
+Functional requirements:
+1. Authentication & Users:
+   - Email + password, password reset, email verification (stubbed), JWT refresh tokens.
+   - Role management: free vs premium (flag in DB).
+
+2. Core features:
+   - Global stock universe support (US + major exchanges). Integrate with a market data provider (configurable: Finnhub/AlphaVantage/IEX Cloud). Implement caching + rate-limit handling with Redis.
+   - Stock scoring engine:
+     - Layered scoring: Quality (ROE, Margin, ROA), Growth (revenue & EPS growth), Value (P/E, P/B vs industry), Safety (debt ratios). Normalize metrics to 0–100 and compute weighted total score.
+     - Expose scoring pipeline with testable functions and clear configuration to adjust weights.
+   - Screener: advanced filters (sector, industry, market cap band, score threshold), saveable custom screens.
+   - Watchlist + Alerts: server-side scheduled job (cron) to update prices and trigger email/websocket alerts when a watched ticker enters/exits a defined state (e.g., “On Sale”).
+   - Portfolio management: multi-account support, transactions (buy/sell), realized & unrealized P&L, performance chart, allocation breakdown.
+   - Educational hub: markdown-based articles stored in DB, search, and a quick interactive tutorial for "14-day confidence path" (placeholder content).
+
+3. UX:
+   - Modern, polished UI with Tailwind; use Framer Motion for subtle animations.
+   - Responsive design, desktop and mobile experiences.
+   - Charts: use Recharts or lightweight chart library with zoom/tooltip.
+   - Internationalization: basic support with i18n keys (English default).
+
+4. Backend & infra:
+   - REST API endpoints documented with OpenAPI/Swagger.
+   - Use Prisma or TypeORM for schema and migrations. Include migrations to create necessary tables.
+   - Caching layer (Redis) for price and scoring results.
+   - Background workers (BullMQ or node-cron) for ingesting price data and recomputing scores nightly.
+   - Rate-limiter and error handling for external API calls.
+
+5. Security & privacy:
+   - Store API keys in environment variables; provide sample `.env.example`.
+   - Sanitize inputs, validate schemas, use helmet, and enable CORS config.
+   - Provide basic RBAC checks on API endpoints.
+
+6. Developer ergonomics:
+   - Unit tests for scoring engine and integration tests for key API routes.
+   - Dockerfile and docker-compose for local dev (Postgres + Redis).
+   - CI: GitHub Actions workflow to run tests and linting on push.
+   - README with architecture overview, setup, Replit deployment tips (how to set env vars), and how to switch data provider.
+
+Deliverable:
+- Fully working codebase that can be run locally with Docker or deployed to Replit (include instructions). Make components modular and well-documented, comment where to replace licensed assets, and include a demo user account and seed data.
