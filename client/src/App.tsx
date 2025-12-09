@@ -10,11 +10,13 @@ import StockDetail from "@/pages/stock-detail";
 import Screener from "@/pages/screener";
 import Portfolio from "@/pages/portfolio";
 import Education from "@/pages/education";
+import LandingPage from "@/pages/landing";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
+      <Route path="/" component={LandingPage} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/stock/:ticker" component={StockDetail} />
       <Route path="/screener" component={Screener} />
       <Route path="/portfolio" component={Portfolio} />

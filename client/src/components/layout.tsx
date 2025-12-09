@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, GraduationCap, Search, Bell, Menu } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, GraduationCap, Search, Bell, Menu, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -8,15 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Dashboard", icon: LayoutDashboard, href: "/" },
+    { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { label: "Screener", icon: Search, href: "/screener" },
     { label: "Portfolio", icon: PieChart, href: "/portfolio" },
     { label: "Education", icon: GraduationCap, href: "/education" },
   ];
+
+  const handleSignOut = () => {
+    setLocation("/");
+  };
 
   const NavContent = () => (
     <div className="flex flex-col h-full bg-sidebar text-sidebar-foreground">
@@ -43,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           );
         })}
       </nav>
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-sidebar-border space-y-4">
         <div className="bg-sidebar-accent/50 rounded-lg p-4">
            <p className="text-xs text-sidebar-foreground/60 font-medium mb-2">My Plan</p>
            <div className="flex items-center justify-between mb-2">
@@ -54,6 +58,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
              <div className="bg-primary h-full w-[70%]" />
            </div>
         </div>
+        
+        <Button variant="ghost" className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent" onClick={handleSignOut}>
+          <LogOut className="w-5 h-5 mr-3" />
+          Sign Out
+        </Button>
       </div>
     </div>
   );
